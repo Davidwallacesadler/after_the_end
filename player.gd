@@ -12,11 +12,13 @@ extends Area2D
 var _player_face_direction: Vector2 = Vector2.UP
 var _is_moving: bool = false
 var _is_rotating: bool = false
+var _can_move_forwards: bool = true
+var _can_move_backwards: bool = true
 
 # ////////////////////
 # Virtual Functions
 # ////////////////////
-func _process(delta):
+func _process(_delta):
 	pass
 	
 
@@ -31,16 +33,18 @@ func _unhandled_input(event):
 # Private Functions
 # ////////////////////
 func _handle_forward_backward_movement(event: InputEvent) -> void:
-	var movement_direction = Vector2.ZERO
+	var movement_direction: Vector2 = Vector2.ZERO
 	
-	if event.is_action_pressed("move_up"):
+	if event.is_action_pressed("move_up") and _can_move_forwards:
 		movement_direction = _player_face_direction
-	else:
+	elif event.is_action_pressed("move_down") and _can_move_backwards:
 		movement_direction = -_player_face_direction
-		
 	
-	var new_position = self.position + movement_direction * step_length
-	var tween = self.create_tween()
+	if movement_direction == Vector2.ZERO:
+		return # Exit Early -- no movement will happen
+	
+	var new_position: Vector2 = self.position + movement_direction * step_length
+	var tween: Tween = self.create_tween()
 	
 	tween.set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(self, "position", new_position, tween_time_seconds)
@@ -51,6 +55,7 @@ func _handle_forward_backward_movement(event: InputEvent) -> void:
 
 func _on_forward_backward_movement_finished() -> void:
 	_is_moving = false
+	_check_collision_ray_casts()
 	
 
 func _handle_left_right_turning(event: InputEvent) -> void:
@@ -78,7 +83,7 @@ func _handle_left_right_turning(event: InputEvent) -> void:
 			_player_face_direction = Vector2.UP
 	
 	var new_player_rotation: float = self.rotation + deg_to_rad(player_rotation_degrees)
-	var tween = self.create_tween()
+	var tween: Tween = self.create_tween()
 	
 	tween.set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(self, "rotation", new_player_rotation, tween_time_seconds)
@@ -89,4 +94,10 @@ func _handle_left_right_turning(event: InputEvent) -> void:
 
 func _on_rotation_finished() -> void:
 	_is_rotating = false
+	_check_collision_ray_casts()
+	
+
+func _check_collision_ray_casts() -> void:
+	_can_move_forwards = not %ForwardsCollisionRayCast.is_colliding()
+	_can_move_backwards = not %BackwardsCollisionRayCast.is_colliding()
 	

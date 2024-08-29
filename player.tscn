@@ -7,6 +7,7 @@
 size = Vector2(32, 32)
 
 [node name="Player" type="Area2D"]
+collision_mask = 2
 script = ExtResource("1_s6m5x")
 step_length = 32
 metadata/_edit_group_ = true
@@ -19,3 +20,13 @@ texture = ExtResource("2_2xdaf")
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_o4rj3")
+
+[node name="ForwardsCollisionRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(0, -32)
+collision_mask = 2
+
+[node name="BackwardsCollisionRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(0, 32)
+collision_mask = 2
