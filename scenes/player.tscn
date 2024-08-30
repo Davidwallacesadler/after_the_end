@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq52fr3k1fbo0"]
+[gd_scene load_steps=5 format=3 uid="uid://cq52fr3k1fbo0"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_s6m5x"]
 [ext_resource type="Texture2D" uid="uid://p33as2su3dju" path="res://assets/player_head_shoulders.png" id="2_2xdaf"]
+[ext_resource type="Texture2D" uid="uid://c21hy6i4ehbx3" path="res://assets/light.png" id="2_rbwnb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o4rj3"]
 size = Vector2(32, 32)
@@ -10,6 +11,13 @@ size = Vector2(32, 32)
 collision_mask = 2
 script = ExtResource("1_s6m5x")
 metadata/_edit_group_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.968627, 0.92549, 0.862745, 1)
+blend_mode = 2
+shadow_enabled = true
+shadow_color = Color(0.109804, 0.109804, 0.203922, 1)
+texture = ExtResource("2_rbwnb")
 
 [node name="MainBodySprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true

@@ -7,5 +7,7 @@ script = ExtResource("1_kq855")
 
 [node name="ItemList" type="ItemList" parent="."]
 unique_name_in_owner = true
-offset_right = 637.0
-offset_bottom = 477.0
+offset_left = 232.0
+offset_top = 188.0
+offset_right = 354.0
+offset_bottom = 265.0
