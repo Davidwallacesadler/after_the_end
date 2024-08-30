@@ -3,10 +3,10 @@ extends Node2D
 # ////////////////////
 # Private Variables
 # ////////////////////
-var _item_list: Array = []
 var _match_count: int = 0
 var _fuel_count: int = 0
 
+var _item_list: Array = []
 var _inventory_items: Array:
 	get:
 		return _item_list
@@ -36,5 +36,5 @@ func _on_player_picked_up_object() -> void:
 
 func _update_item_list_ui() -> void:
 	%ItemList.clear()
-	for item in _item_list:
+	for item in _inventory_items:
 		%ItemList.add_item(item.name)

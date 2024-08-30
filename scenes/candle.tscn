@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1ryoa586hivi"]
+
+[ext_resource type="Script" path="res://scripts/candle.gd" id="1_tj8pq"]
+[ext_resource type="Texture2D" uid="uid://dghkg7sukqcxp" path="res://assets/candle.png" id="2_j82nu"]
+[ext_resource type="Texture2D" uid="uid://c21hy6i4ehbx3" path="res://assets/light.png" id="3_3lrgf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wn4nl"]
+
+[node name="Candle" type="Node2D"]
+script = ExtResource("1_tj8pq")
+
+[node name="CandleSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_j82nu")
+
+[node name="CandleLight" type="PointLight2D" parent="."]
+unique_name_in_owner = true
+color = Color(1, 0.968627, 0.756863, 1)
+shadow_enabled = true
+texture = ExtResource("3_3lrgf")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="InteractionAreaShape" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_wn4nl")

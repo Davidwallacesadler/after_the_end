@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://djsko7qua1fu2"]
+[gd_scene load_steps=13 format=3 uid="uid://djsko7qua1fu2"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_umndl"]
 [ext_resource type="PackedScene" uid="uid://cq52fr3k1fbo0" path="res://scenes/player.tscn" id="1_upucr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bp2u6xhjxowjt" path="res://scenes/player_pov.tscn" id="4_oo7yf"]
 [ext_resource type="PackedScene" uid="uid://hglqfqer0bkk" path="res://scenes/top_down_object.tscn" id="5_e55dm"]
 [ext_resource type="Resource" uid="uid://dubdoex3doyrj" path="res://resources/sticky_note.tres" id="6_7k0xp"]
+[ext_resource type="PackedScene" uid="uid://d1ryoa586hivi" path="res://scenes/candle.tscn" id="6_lfklc"]
 [ext_resource type="PackedScene" uid="uid://ceiv6cygl7xi2" path="res://scenes/inventory.tscn" id="7_xrnbq"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jfq2n"]
@@ -97,10 +98,22 @@ layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 0, 65536, 131072, 
 
 [node name="Player" parent="WorldDarkness/World" instance=ExtResource("1_upucr")]
 unique_name_in_owner = true
+position = Vector2(47, 43)
 
 [node name="top_down_object" parent="WorldDarkness/World" instance=ExtResource("5_e55dm")]
 position = Vector2(205, 268)
 interactable_data = ExtResource("6_7k0xp")
+
+[node name="Candle" parent="WorldDarkness/World" instance=ExtResource("6_lfklc")]
+position = Vector2(16, 272)
+
+[node name="Candle2" parent="WorldDarkness/World" instance=ExtResource("6_lfklc")]
+position = Vector2(183, 21)
+type = 1
+
+[node name="Candle3" parent="WorldDarkness/World" instance=ExtResource("6_lfklc")]
+position = Vector2(395, 75)
+type = 3
 
 [node name="PlayerPov" parent="." instance=ExtResource("4_oo7yf")]
 unique_name_in_owner = true

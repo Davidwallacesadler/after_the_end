@@ -3,7 +3,7 @@ extends Node2D
 # ////////////////////
 # Export Variables
 # ////////////////////
-@export var player_start_position_in_tiles: Vector2 = Vector2(3, 2)
+@export var player_start_position_in_tiles: Vector2 = Vector2(2, 2)
 @export var tile_size: int = 32
 
 # ////////////////////
@@ -51,6 +51,7 @@ func _check_and_handle_open_inventory_pressed() -> void:
 			%WorldDarkness.color = Color(1, 1, 1, 1)
 		elif not _is_showing_player_pov:
 			%WorldDarkness.color = _darkness_color
+	
 
 func _update_scene_visiblities() -> void:
 	%World.visible = not _is_showing_player_pov
@@ -60,6 +61,7 @@ func _update_scene_visiblities() -> void:
 		%WorldDarkness.color = Color(1, 1, 1, 1) 
 	else:
 		%WorldDarkness.color = _darkness_color
+	
 
 func _on_player_interacted(data: InteractableData) -> void:
 	_is_showing_player_pov = true

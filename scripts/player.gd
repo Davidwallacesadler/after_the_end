@@ -63,12 +63,9 @@ func _on_forward_backward_movement_finished() -> void:
 	
 
 func _handle_left_right_turning(event: InputEvent) -> void:
-	if not _can_rotate:
-		return
-	
 	var player_rotation_degrees: float = 0.0
 	
-	if event.is_action_pressed("move_left"):
+	if event.is_action_pressed("move_left") and _can_rotate:
 		player_rotation_degrees = -90.0
 		if _player_face_direction == Vector2.UP:
 			_player_face_direction = Vector2.LEFT
@@ -78,7 +75,7 @@ func _handle_left_right_turning(event: InputEvent) -> void:
 			_player_face_direction = Vector2.RIGHT
 		else:
 			_player_face_direction = Vector2.UP
-	else:
+	elif event.is_action_pressed("move_right") and _can_rotate:
 		player_rotation_degrees = 90.0
 		if _player_face_direction == Vector2.UP:
 			_player_face_direction = Vector2.RIGHT
@@ -88,6 +85,9 @@ func _handle_left_right_turning(event: InputEvent) -> void:
 			_player_face_direction = Vector2.LEFT
 		else:
 			_player_face_direction = Vector2.UP
+	
+	if player_rotation_degrees == 0:
+		return # Exit Early -- no rotation will happen
 	
 	var new_player_rotation: float = self.rotation + deg_to_rad(player_rotation_degrees)
 	var tween: Tween = self.create_tween()
@@ -118,6 +118,5 @@ func _on_player_interacted(_data: InteractableData) -> void:
 	
 
 func _on_player_picked_up_object() -> void:
-	_can_move_backwards = true
-	_can_move_forwards = true
+	_check_collision_ray_casts()
 	_can_rotate = true
