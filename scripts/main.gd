@@ -1,6 +1,5 @@
 extends Node2D
 
-
 # ////////////////////
 # Export Variables
 # ////////////////////
@@ -26,9 +25,12 @@ func _ready():
 	%Player.position = player_start_position
 	%PlayerPov.current_tile_position = player_start_position_in_tiles
 	
+	GameEvents.player_interacted.connect(_on_player_interacted)
+	
 
 func _process(delta):
 	_check_and_handle_pov_button_pressed()
+	_check_and_handle_open_inventory_pressed()
 	
 
 # ////////////////////
@@ -40,9 +42,18 @@ func _check_and_handle_pov_button_pressed() -> void:
 		_update_scene_visiblities()
 	
 
+func _check_and_handle_open_inventory_pressed() -> void:
+	if Input.is_action_just_pressed("open_inventory"):
+		%Inventory.visible = not %Inventory.visible
+
 func _update_scene_visiblities() -> void:
-	%WorldTileMap.visible = not _is_showing_player_pov
-	%Player.visible = not _is_showing_player_pov
-	
+	%World.visible = not _is_showing_player_pov
 	%PlayerPov.visible = _is_showing_player_pov
 	
+
+func _on_player_interacted(data: InteractableData) -> void:
+	_is_showing_player_pov = true
+	_update_scene_visiblities()
+	
+	%MainAudioPlayer.stream = data.interaction_sound
+	%MainAudioPlayer.play()

@@ -14,12 +14,14 @@ var _is_moving: bool = false
 var _is_rotating: bool = false
 var _can_move_forwards: bool = true
 var _can_move_backwards: bool = true
+var _can_rotate: bool = true
 
 # ////////////////////
 # Virtual Functions
 # ////////////////////
-func _process(_delta):
-	pass
+func _ready():
+	GameEvents.player_interacted.connect(_on_player_interacted)
+	GameEvents.player_picked_up_object.connect(_on_player_picked_up_object)
 	
 
 func _unhandled_input(event):
@@ -61,6 +63,9 @@ func _on_forward_backward_movement_finished() -> void:
 	
 
 func _handle_left_right_turning(event: InputEvent) -> void:
+	if not _can_rotate:
+		return
+	
 	var player_rotation_degrees: float = 0.0
 	
 	if event.is_action_pressed("move_left"):
@@ -105,3 +110,14 @@ func _check_collision_ray_casts() -> void:
 	_can_move_forwards = not %ForwardsCollisionRayCast.is_colliding()
 	_can_move_backwards = not %BackwardsCollisionRayCast.is_colliding()
 	
+
+func _on_player_interacted(_data: InteractableData) -> void:
+	_can_move_backwards = false
+	_can_move_forwards = false
+	_can_rotate = false
+	
+
+func _on_player_picked_up_object() -> void:
+	_can_move_backwards = true
+	_can_move_forwards = true
+	_can_rotate = true

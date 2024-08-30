@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceiv6cygl7xi2"]
+
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="1_kq855"]
+
+[node name="inventory" type="Node2D"]
+script = ExtResource("1_kq855")
+
+[node name="ItemList" type="ItemList" parent="."]
+unique_name_in_owner = true
+offset_right = 637.0
+offset_bottom = 477.0

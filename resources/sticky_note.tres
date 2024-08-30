@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InteractableData" load_steps=5 format=3 uid="uid://dubdoex3doyrj"]
+
+[ext_resource type="Texture2D" uid="uid://crs7llshlp5nq" path="res://assets/post_it_close.png" id="1_6igc8"]
+[ext_resource type="Script" path="res://scripts/interactable_data.gd" id="1_f1sed"]
+[ext_resource type="Texture2D" uid="uid://b3lhleafjnkys" path="res://assets/shiny_thing.png" id="2_ravfg"]
+[ext_resource type="AudioStream" uid="uid://42hof7ttsg0u" path="res://assets/paper_pickup.wav" id="3_yjwli"]
+
+[resource]
+script = ExtResource("1_f1sed")
+name = "Sticky Note"
+image = ExtResource("2_ravfg")
+close_up_image = ExtResource("1_6igc8")
+image_description = "A bright blue sticky note with \"6 x 9\" written with colored pencil."
+characterization_text = "What the hell?"
+interaction_sound = ExtResource("3_yjwli")
+object_type = 2
