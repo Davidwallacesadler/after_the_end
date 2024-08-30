@@ -1,9 +1,9 @@
-extends Area2D
+class_name Player extends Area2D
 
 # ////////////////////
 # Exports
 # ////////////////////
-@export var step_length: int = 64
+@export var step_length: int = 32
 @export var tween_time_seconds: float = 0.1
 
 # ////////////////////
@@ -52,6 +52,8 @@ func _handle_forward_backward_movement(event: InputEvent) -> void:
 	
 	_is_moving = true
 	
+	GameEvents.player_moved.emit(movement_direction)
+	
 
 func _on_forward_backward_movement_finished() -> void:
 	_is_moving = false
@@ -90,6 +92,8 @@ func _handle_left_right_turning(event: InputEvent) -> void:
 	tween.finished.connect(_on_rotation_finished)
 	
 	_is_rotating = true
+	
+	GameEvents.player_turned.emit(_player_face_direction)
 	
 
 func _on_rotation_finished() -> void:
