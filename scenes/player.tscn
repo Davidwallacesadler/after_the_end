@@ -13,6 +13,7 @@ script = ExtResource("1_s6m5x")
 metadata/_edit_group_ = true
 
 [node name="LanternLight" type="PointLight2D" parent="."]
+unique_name_in_owner = true
 color = Color(0.968627, 0.92549, 0.862745, 1)
 blend_mode = 2
 shadow_enabled = true
@@ -37,3 +38,11 @@ collision_mask = 2
 unique_name_in_owner = true
 target_position = Vector2(0, 32)
 collision_mask = 2
+
+[node name="HealthChangeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="LanternUsageTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true

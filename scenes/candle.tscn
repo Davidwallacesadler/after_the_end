@@ -3,16 +3,15 @@
 [ext_resource type="Script" path="res://scripts/candle.gd" id="1_tj8pq"]
 [ext_resource type="Texture2D" uid="uid://dghkg7sukqcxp" path="res://assets/candle.png" id="2_j82nu"]
 [ext_resource type="Texture2D" uid="uid://c21hy6i4ehbx3" path="res://assets/light.png" id="3_3lrgf"]
-[ext_resource type="Texture2D" uid="uid://burovwnoe8g5v" path="res://assets/candle_lit.png" id="3_w0fic"]
 [ext_resource type="AudioStream" uid="uid://diuh5ki1xwsjq" path="res://assets/match_strike.wav" id="5_csdoo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wn4nl"]
 size = Vector2(64, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmw5k"]
+
 [node name="Candle" type="Node2D"]
 script = ExtResource("1_tj8pq")
-default_sprite = ExtResource("2_j82nu")
-lit_sprite = ExtResource("3_w0fic")
 
 [node name="CandleSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -27,9 +26,18 @@ texture = ExtResource("3_3lrgf")
 
 [node name="InteractionArea" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 2
 
 [node name="InteractionAreaShape" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("RectangleShape2D_wn4nl")
+
+[node name="LightArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+
+[node name="LightAreaShape" type="CollisionShape2D" parent="LightArea"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_hmw5k")
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true

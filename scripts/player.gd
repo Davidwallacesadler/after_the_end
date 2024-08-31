@@ -16,19 +16,39 @@ var _can_move_forwards: bool = true
 var _can_move_backwards: bool = true
 var _can_rotate: bool = true
 
+var _health: float = 100
+var _is_in_light: bool = false
+var _is_taking_damage: bool = false
+
+var _lantern_seconds_left: int = 15
+var _is_lantern_on: bool = true
+
+var _damage_amount: float:
+	get:
+		if _is_in_light or (_is_lantern_on and _lantern_seconds_left > 0):
+			return -2.5
+		else:
+			return 2.5
+
 # ////////////////////
 # Virtual Functions
 # ////////////////////
 func _ready():
 	GameEvents.player_interacted.connect(_on_player_interacted)
 	GameEvents.player_picked_up_object.connect(_on_player_picked_up_object)
+	GameEvents.player_entered_light.connect(_on_player_entered_light)
+	GameEvents.player_entered_dark.connect(_on_player_entered_dark)
 	
+	%HealthChangeTimer.timeout.connect(_handle_player_damage)
+	%LanternUsageTimer.timeout.connect(_handle_lantern_usage_update)
 
 func _unhandled_input(event):
 	if not _is_moving and (event.is_action_pressed("move_up") or event.is_action_pressed("move_down")):
 		_handle_forward_backward_movement(event)
 	if not _is_rotating and (event.is_action_pressed("move_left") or event.is_action_pressed("move_right")):
 		_handle_left_right_turning(event)
+	if event.is_action_pressed("toggle_lantern"):
+		_handle_lantern_toggle()
 	
 
 # ////////////////////
@@ -120,3 +140,53 @@ func _on_player_interacted(_data: InteractableData) -> void:
 func _on_player_picked_up_object() -> void:
 	_check_collision_ray_casts()
 	_can_rotate = true
+
+func _on_player_entered_light() -> void:
+	_is_in_light = true
+	
+
+func _on_player_entered_dark() -> void:
+	_is_in_light = false
+	
+
+func _handle_player_damage() -> void:
+	var new_player_health: float = _health - _damage_amount
+	
+	if new_player_health < 0 or new_player_health > 100:
+		return
+	
+	_health = new_player_health
+	GameEvents.player_health_changed.emit(_health)
+	
+
+func _handle_lantern_usage_update() -> void:
+	if not _is_lantern_on:
+		return
+	
+	
+	var new_time_left = _lantern_seconds_left - 1
+	
+	if new_time_left < 0:
+		return
+	
+	_lantern_seconds_left = new_time_left
+	GameEvents.player_fuel_time_changed.emit(_lantern_seconds_left)
+	if _lantern_seconds_left == 0:
+		%LanternLight.energy = 0.25
+		%LanternLight.texture_scale = 0.5
+		_is_lantern_on = false
+		# %LanternLight.energy = 0 # Makes cool black blob
+	
+
+func _handle_lantern_toggle() -> void:
+	if not _is_lantern_on and _lantern_seconds_left == 0:
+		return
+	
+	_is_lantern_on = not _is_lantern_on
+	
+	if _is_lantern_on and _lantern_seconds_left > 0:
+		%LanternLight.energy = 1
+		%LanternLight.texture_scale = 1
+	else:
+		%LanternLight.energy = 0.25
+		%LanternLight.texture_scale = 0.5

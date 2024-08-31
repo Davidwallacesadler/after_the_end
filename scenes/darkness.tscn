@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw02chmwrbwnf"]
+
+[ext_resource type="Texture2D" uid="uid://c21hy6i4ehbx3" path="res://assets/light.png" id="1_egpb3"]
+
+[node name="darkness" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.968627, 0.92549, 0.862745, 1)
+energy = 0.0
+blend_mode = 2
+texture = ExtResource("1_egpb3")

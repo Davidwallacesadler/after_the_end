@@ -30,6 +30,8 @@ func _ready():
 	
 	GameEvents.player_interacted.connect(_on_player_interacted)
 	GameEvents.player_picked_up_object.connect(_on_player_picked_up_object)
+	GameEvents.player_health_changed.connect(_on_player_health_changed)
+	GameEvents.player_fuel_time_changed.connect(_on_player_fuel_time_changed)
 	
 
 func _process(delta):
@@ -49,20 +51,11 @@ func _check_and_handle_pov_button_pressed() -> void:
 func _check_and_handle_open_inventory_pressed() -> void:
 	if Input.is_action_just_pressed("open_inventory"):
 		%Inventory.visible = not %Inventory.visible
-		if %Inventory.visible:
-			%WorldDarkness.color = Color(1, 1, 1, 1)
-		elif not _is_showing_player_pov:
-			%WorldDarkness.color = _darkness_color
 	
 
 func _update_scene_visiblities() -> void:
 	%World.visible = not _is_showing_player_pov
 	%PlayerPov.visible = _is_showing_player_pov
-	
-	if _is_showing_player_pov:
-		%WorldDarkness.color = Color(1, 1, 1, 1) 
-	else:
-		%WorldDarkness.color = _darkness_color
 	
 
 func _on_player_interacted(data: InteractableData) -> void:
@@ -77,3 +70,13 @@ func _on_player_picked_up_object() -> void:
 	_is_showing_player_pov = false
 	_update_scene_visiblities()
 	
+
+func _on_player_health_changed(value: float) -> void:
+	var string = "%s"
+	var real_string = string % value
+	%EverythingButWorld/MainUI/HealthValueLabel.text = real_string
+
+func _on_player_fuel_time_changed(value: int) -> void:
+	var string = "%s"
+	var real_string = string % value
+	%EverythingButWorld/MainUI/FuelValueLabel.text = real_string
