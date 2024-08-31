@@ -9,7 +9,7 @@ class_name Player extends Area2D
 # ////////////////////
 # Private Variables
 # ////////////////////
-var _player_face_direction: Vector2 = Vector2.UP
+var _player_face_direction: Vector2 = Vector2.DOWN
 var _is_moving: bool = false
 var _is_rotating: bool = false
 var _can_move_forwards: bool = true

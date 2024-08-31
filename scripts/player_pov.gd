@@ -4,7 +4,7 @@ extends Node2D
 # Exports
 # ////////////////////
 @export var current_tile_position: Vector2 = Vector2.ZERO
-@export var current_player_face_direction: Vector2 = Vector2.UP
+@export var current_player_face_direction: Vector2 = Vector2.DOWN
 
 
 # ////////////////////

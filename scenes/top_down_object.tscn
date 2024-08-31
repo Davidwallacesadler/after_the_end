@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/top_down_object.gd" id="1_6my1h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2uyrm"]
+size = Vector2(64, 64)
 
 [node name="top_down_object" type="Node2D"]
 script = ExtResource("1_6my1h")

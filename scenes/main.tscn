@@ -99,6 +99,7 @@ layer_0/tile_data = PackedInt32Array(0, 131072, 0, 1, 131072, 0, 65536, 131072, 
 [node name="Player" parent="WorldDarkness/World" instance=ExtResource("1_upucr")]
 unique_name_in_owner = true
 position = Vector2(47, 43)
+rotation = 3.14159
 
 [node name="top_down_object" parent="WorldDarkness/World" instance=ExtResource("5_e55dm")]
 position = Vector2(205, 268)

@@ -4,6 +4,7 @@ extends Node2D
 # Export Variables
 # ////////////////////
 @export var player_start_position_in_tiles: Vector2 = Vector2(2, 2)
+@export var player_start_direction: Vector2 = Vector2.DOWN
 @export var tile_size: int = 32
 
 # ////////////////////
@@ -28,6 +29,7 @@ func _ready():
 	%WorldDarkness.color = _darkness_color
 	
 	GameEvents.player_interacted.connect(_on_player_interacted)
+	GameEvents.player_picked_up_object.connect(_on_player_picked_up_object)
 	
 
 func _process(delta):
@@ -69,3 +71,9 @@ func _on_player_interacted(data: InteractableData) -> void:
 	
 	%MainAudioPlayer.stream = data.interaction_sound
 	%MainAudioPlayer.play()
+	
+
+func _on_player_picked_up_object() -> void:
+	_is_showing_player_pov = false
+	_update_scene_visiblities()
+	
